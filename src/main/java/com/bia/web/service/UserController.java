@@ -43,7 +43,6 @@ public class UserController extends com.bia.web.service.CorsBase {
         myMap.get("test");
         System.out.println(myMap.get(child.next()));
         while(child.hasNext()){
-            System.out.print(1);
             System.out.println(myMap.get(child.next()));
         }
         return "welcome," + username;
