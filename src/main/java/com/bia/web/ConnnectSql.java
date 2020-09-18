@@ -1,6 +1,10 @@
 package com.bia.web;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConnnectSql {
     static final String JDBC_DRIVER="com.mysql.cj.jdbc.Driver";
@@ -8,10 +12,10 @@ public class ConnnectSql {
 
     static final String USER="root";
     static final String PASS="123456";
-    public String[] returnSql(){
+    public List<Map<String,Object>> returnSql(){
         Connection conn=null;
         Statement stmt=null;
-        String[] myList={"0"};
+        List<Map<String,Object>> myList= new ArrayList<Map<String,Object>>();
         try {
             System.out.println("链接数据库....");
             conn=DriverManager.getConnection(DB_URL,USER,PASS);
@@ -21,18 +25,16 @@ public class ConnnectSql {
             String sql;
             sql = "SELECT ID, ProdName FROM a";
             ResultSet rs = stmt.executeQuery(sql);
-            // 展开结果集数据库
-            String returnString="";
+            System.out.println(rs);
             while(rs.next()){
                 // 通过字段检索
                 int id  = rs.getInt("ID");
                 String name = rs.getString("ProdName");
                 // 输出数据
-                System.out.print("ID: " + id);
-                System.out.print(", 产品名称: " + name);
-                System.out.print(", 产品名称: " + name);
-                returnString+=(id+": " + name);
-                myList[0]=returnString;
+                Map<String,Object> myMap=new HashMap<>();
+                myMap.put("id",id);
+                myMap.put("name",name);
+                myList.add(myMap);
             }
             rs.close();
             stmt.close();
@@ -44,7 +46,6 @@ public class ConnnectSql {
             // 处理 Class.forName 错误
             e.printStackTrace();
         }
-        System.out.println(myList);
         return myList;
     }
     public static void main(String[] args){

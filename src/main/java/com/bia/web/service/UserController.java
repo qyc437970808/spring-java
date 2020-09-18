@@ -6,10 +6,7 @@ import com.bia.web.service.Animals;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping(value="/user")
@@ -17,14 +14,10 @@ import java.util.Set;
 
 public class UserController extends com.bia.web.service.CorsBase {
     @GetMapping("/getUser")
-    public String user(){
+    public com.bia.web.service.JsonResult user(){
         ConnnectSql myClass=new ConnnectSql();
-        String[] myData = myClass.returnSql();
-        StringBuffer str5 = new StringBuffer();
-        for (String s : myData) {
-            str5.append(s);
-        }
-        return str5.toString();
+        List<Map<String,Object>> myData = myClass.returnSql();
+        return new com.bia.web.service.JsonResult(myData);
     }
 
     @RequestMapping(value="myInterface",method = RequestMethod.GET)
