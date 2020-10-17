@@ -3,8 +3,10 @@ package com.bia.web.service;
 import com.bia.web.ConnnectSql;
 import com.bia.web.service.JsonResult;
 import com.bia.web.service.Animals;
+import com.bia.web.service.SendPost;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.*;
 
@@ -17,7 +19,14 @@ public class UserController extends com.bia.web.service.CorsBase {
     public com.bia.web.service.JsonResult user(){
         ConnnectSql myClass=new ConnnectSql();
         List<Map<String,Object>> myData = myClass.returnSql();
-        return new com.bia.web.service.JsonResult(myData);
+        try {
+            String myPost=new SendPost().load("http://localhost:8085/user/get/a","a");
+            return new com.bia.web.service.JsonResult(myPost);
+        }catch (Exception e){
+            return new com.bia.web.service.JsonResult(e);
+        }
+
+//        return new com.bia.web.service.JsonResult(myData);
     }
 
     @RequestMapping(value="myInterface",method = RequestMethod.GET)
