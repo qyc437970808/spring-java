@@ -25,8 +25,6 @@ public class UserController extends com.bia.web.service.CorsBase {
         }catch (Exception e){
             return new com.bia.web.service.JsonResult(e);
         }
-
-//        return new com.bia.web.service.JsonResult(myData);
     }
 
     @RequestMapping(value="myInterface",method = RequestMethod.GET)
