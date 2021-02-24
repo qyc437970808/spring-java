@@ -18,7 +18,8 @@ public class UserController extends com.bia.web.service.CorsBase {
     @GetMapping("/getUser")
     public com.bia.web.service.JsonResult user(){
         ConnnectSql myClass=new ConnnectSql();
-        List<Map<String,Object>> myData = myClass.returnSql();
+        String sql = "SELECT ID, ProdName FROM a";
+        List<Map<String,Object>> myData = myClass.returnSql(sql);
         try {
             String myPost=new SendPost().load("http://localhost:8085/user/get/a","a");
             return new com.bia.web.service.JsonResult(myPost);

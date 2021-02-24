@@ -12,7 +12,7 @@ public class ConnnectSql {
 
     static final String USER="root";
     static final String PASS="123456";
-    public List<Map<String,Object>> returnSql(){
+    public List<Map<String,Object>> returnSql(String sql){
         Connection conn=null;
         Statement stmt=null;
         List<Map<String,Object>> myList= new ArrayList<Map<String,Object>>();
@@ -22,8 +22,7 @@ public class ConnnectSql {
             // 执行查询
             System.out.println("实例化Statement对象...");
             stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT ID, ProdName FROM a";
+
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println(rs);
             while(rs.next()){
